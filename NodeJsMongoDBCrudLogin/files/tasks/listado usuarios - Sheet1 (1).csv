@@ -1,0 +1,4 @@
+nombre,apellidos,email,password,rol
+qwe,,qwerty@qwerty.qwerty,qwerty,administrador
+rty,qwe,rtyqwe@rtyqwe.rtyqwe,rtyqwe,profesor
+man,man,man@man.man,man,Alumno
