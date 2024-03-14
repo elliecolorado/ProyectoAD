@@ -1,4 +1,4 @@
-//Ruta nueva, con algunos post y get de tasks.js
+//Ruta nueva, con algunos post y get de asignaturas.js
 const express = require('express');
 const router = express.Router();
 const Software = require('../models/software');
@@ -18,24 +18,24 @@ const fs = require('fs');//Para la búsqueda de archivos y su descarga
 router.post('/softwares/add/:id', isAuthenticated, async (req, res) => {
     try {
         // Obtener el ID de la tarea desde los parámetros de la URL
-        const taskId = req.params.id;
+        const asignaturaId = req.params.id;
 
         // Crear una nueva instancia del modelo Software con los datos del formulario
         const newSoftware = new Software({
             nombre: req.body.nombre,
             url: req.body.url,
             descripcion: req.body.descripcion,
-            task: taskId
+            asignatura: asignaturaId
         });
 
         // Guardar el nuevo software en la base de datos
         await newSoftware.save();
 
         // Redirigir a la lista de software después de agregar con un mensaje de éxito
-        res.redirect(`/tasks/update_task/${taskId}?success=true`);
+        res.redirect(`/asignaturas/update_asignatura/${asignaturaId}?success=true`);
     } catch (error) {
         console.error('Error al agregar el nuevo software:', error);
-        res.redirect(`/tasks/update_task/${taskId}?error=true`);
+        res.redirect(`/asignaturas/update_asignatura/${asignaturaId}?error=true`);
     }
 });
 
@@ -43,10 +43,10 @@ router.get('/softwares/delete/:id', isAuthenticated,async (req, res, next) => {
     if(req.user.rol=="administrador" || req.user.rol=="profesor"){
     let { id } = req.params;
     const software = await Software.findById(id);
-    const taskId = software.task;
-    console.log("id del task" + taskId);
+    const asignaturaId = software.asignatura;
+    console.log("id del asignatura" + asignaturaId);
     await software.delete(id);
-    res.redirect(`/tasks/update_task/${taskId}?success=true`);
+    res.redirect(`/asignaturas/update_asignatura/${asignaturaId}?success=true`);
 }else{
     res.redirect('/');
   }
@@ -74,7 +74,7 @@ router.get('/softwares/update/:id', isAuthenticated, async (req, res) => {
         res.render('update_software', { software,error, success });
     } catch (error) {
         console.error('Error al obtener el formulario de actualización de software:', error);
-        res.redirect(`/tasks/update_task/${taskId}?success=true`); // Redirigir a la lista de software en caso de error
+        res.redirect(`/asignaturas/update_asignatura/${asignaturaId}?success=true`); // Redirigir a la lista de software en caso de error
     }
 }else{
     res.redirect('/');
@@ -91,7 +91,7 @@ router.post('/softwares/update/:id', isAuthenticated, async (req, res) => {
         const software = await Software.findById(id);
 
         // Obtener el ID de la tarea asociada al software
-        const taskId = software.task._id;
+        const asignaturaId = software.asignatura._id;
 
         // Actualizar los campos del software con los nuevos datos del formulario
         software.nombre = req.body.nombre; // Aquí actualizamos el nombre del software
@@ -102,10 +102,10 @@ router.post('/softwares/update/:id', isAuthenticated, async (req, res) => {
         await software.save();
 
         // Redirigir a la lista de software después de la actualización con un mensaje de éxito
-        res.redirect(`/tasks/update_task/${taskId}?success=true`);
+        res.redirect(`/asignaturas/update_asignatura/${asignaturaId}?success=true`);
     } catch (error) {
         console.error('Error al actualizar el software:', error);
-        res.redirect(`/tasks/update_task/${taskId}?error=true`); // Redirigir a la lista de software en caso de error
+        res.redirect(`/asignaturas/update_asignatura/${asignaturaId}?error=true`); // Redirigir a la lista de software en caso de error
     }
 });
 

@@ -11,7 +11,7 @@ var app = express();
 //require('./database');
 
 require('./passport/local-auth');
-var tasksRouter = require('./routes/tasks');
+var asignaturasRouter = require('./routes/asignaturas');
 var usersRouter = require('./routes/users');
 var softwaresRouter = require('./routes/softwares');//Necesario para que pueda acceder a la ruta nueva de softwares
 var suggestionsRouter = require('./routes/sugerencias');
@@ -56,7 +56,7 @@ app.use((req, res, next) => {
 
 //routes
 app.use('/', usersRouter);
-app.use('/', tasksRouter);
+app.use('/', asignaturasRouter);
 app.use('/', softwaresRouter);//Necesario para que pueda acceder a la ruta nueva de softwares
 app.use('/', suggestionsRouter);//Necesario para que pueda acceder a la ruta nueva de softwares
 

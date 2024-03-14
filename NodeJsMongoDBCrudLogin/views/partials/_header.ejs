@@ -45,14 +45,14 @@
             <% if (user.rol=="alumno" ) { %>
             <!--Acceder a la vista general de asignaturas. Solo opción de vista-->
             <li class="nav-item">
-              <a class="nav-link" href="/tasks/user/<%= user._id %>"
+              <a class="nav-link" href="/asignaturas/user/<%= user._id %>"
                 >Aula Virtual<span class="sr-only">(current)</span></a
               >
             </li>
             <% } else if(user.rol=="profesor" ) { %>
             <!-- Acceder a la vista de Asignaturas con opciones CRUD de editar datos. CRUD de Software COMPLETO-->
             <li class="nav-item">
-              <a class="nav-link" href="/tasks/user/<%= user._id %>"
+              <a class="nav-link" href="/asignaturas/user/<%= user._id %>"
                 >Administrar Asignaturas<span class="sr-only"
                   >(current)</span
                 ></a
@@ -74,7 +74,7 @@
               >
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/controlPanel/users">Usuarios</a>
-                <a class="dropdown-item" href="/controlPanel/tasks"
+                <a class="dropdown-item" href="/controlPanel/asignaturas"
                   >Asignaturas</a
                 >
               </div>

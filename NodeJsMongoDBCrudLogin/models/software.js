@@ -1,4 +1,4 @@
-//Nuevo modelo, tiene métodos adaptados de task.js
+//Nuevo modelo, tiene métodos adaptados de asignatura.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -19,8 +19,8 @@ const SoftwareSchema = new Schema({
     name: String,
     path: String
   }],
-  task:
-    {type: mongoose.Schema.Types.ObjectId, ref:'task'}
+  asignatura:
+    {type: mongoose.Schema.Types.ObjectId, ref:'asignatura'}
 });
 
 //Henlo
@@ -49,5 +49,5 @@ SoftwareSchema.statics.findById = async function (id) {
   return await Software.findOne({_id: id});
 };  
 
-//Revisar este export, es necesario crear otra ruta? O basta con la de tasks?
+//Revisar este export, es necesario crear otra ruta? O basta con la de asignaturas?
 module.exports = mongoose.model('softwares', SoftwareSchema);

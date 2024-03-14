@@ -1,0 +1,54 @@
+<% include partials/_header %>
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="text-center">Editar Tarea</h3>
+            <!-- Formulario para editar la tarea -->
+            <form action="/asignaturas/edit/<%= asignatura._id %>" method="post">
+              <!-- Modificado el action para apuntar a /asignaturas/edit/:id -->
+              <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre"
+                  value="<%= asignatura.nombre %>" required>
+              </div>
+              <div class="form-group">
+                <% if(asignatura.planEstudios=="grado" ){ %>
+                  <select name="planEstudios">
+                    <option selected value="Grado">Grado</option>
+                    <option value="Master">Master</option>
+                    <option value="Doctorado">Doctorado</option>
+                  </select>
+                  <% }else if(asignatura.planEstudios=="master" ){ %>
+                    <select name="planEstudios">
+                      <option value="Grado">Grado</option>
+                      <option selected value="Master">Master</option>
+                      <option value="Doctorado">Doctorado</option>
+                    </select>
+                    <% }else{ %>
+                      <select name="planEstudios">
+                        <option value="Grado">Grado</option>
+                        <option value="Master">Master</option>
+                        <option selected value="Doctorado">Doctorado</option>
+                      </select>
+                      <% } %>
+              </div>
+              <div class="form-group">
+                <label for="cuatrimestre">Cuatrimestre:</label>
+                <input class="form-control" type="text" name="cuatrimestre" id="cuatrimestre" placeholder="Cuatrimestre"
+                  value="<%= asignatura.cuatrimestre %>" required>
+              </div>
+              <div class="form-group">
+                <label for="curso">Curso:</label>
+                <input class="form-control" type="text" name="curso" id="curso" placeholder="Curso"
+                  value="<%= asignatura.curso %>" required>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% include partials/_footer %>
