@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Práctica None.js y Expresso (v0.1)</title>
+    <link rel="icon" href="/icon/icon.svg" type="image/x-icon" />
+    <!-- BOOTSTRAP CDN -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+      crossorigin="anonymous"
+    />
+    <style>
+      .logout-link:hover {
+        color: lightgray; /* Color de enlace al pasar el ratón */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--Navbar-->
+    <div class="menu-principal text-center">
+      <!-- NAVIGATION -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="/">Práctica None.js y Expresso (v0.1)</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <% if (user) { %>
+            <!--Acceder al perfil del usuario -->
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Perfil <%=user.email%></a>
+            </li>
+            <% if (user.rol=="alumno" ) { %>
+            <!--Acceder a la vista general de asignaturas. Solo opción de vista-->
+            <li class="nav-item">
+              <a class="nav-link" href="/tasks/user/<%= user._id %>"
+                >Aula Virtual<span class="sr-only">(current)</span></a
+              >
+            </li>
+            <% } else if(user.rol=="profesor" ) { %>
+            <!-- Acceder a la vista de Asignaturas con opciones CRUD de editar datos. CRUD de Software COMPLETO-->
+            <li class="nav-item">
+              <a class="nav-link" href="/tasks/user/<%= user._id %>"
+                >Administrar Asignaturas<span class="sr-only"
+                  >(current)</span
+                ></a
+              >
+            </li>
+            <% } else if(user.rol=="administrador" ) { %>
+            <!-- Acceder a la vista de Asignaturas con opciones CRUD completas, tanto en Asignaturas como en Software-->
+            <!--Enlace retocado-->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Panel de control</a
+              >
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/controlPanel/users">Usuarios</a>
+                <a class="dropdown-item" href="/controlPanel/tasks"
+                  >Asignaturas</a
+                >
+              </div>
+            </li>
+            <% } %> <% } %>
+          </ul>
+          <% if(user){ %>
+            <a class="nav-link disabled logout-link" href="/logout">Log out</a>
+          <% } %>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>

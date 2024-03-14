@@ -1,0 +1,48 @@
+<% include partials/_header %>
+  <div class="container">
+    <div class="row">
+      <!--Formulario-->
+      <div class="col-md-5 offset-md-3">
+        <div class="card">
+          <div class="card-body">
+            <!--Cambiado el nombre de la variable a "editUser" por el cambio del nombre de la variable en la ruta-->
+            <form action="/users/edit/<%= editUser._id %>" method="post"> 
+              <div class="form-group">
+                <input class="form-control" type="text" name="nombre" placeholder="Nombre" value="<%= editUser.nombre %>">
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="apellidos" placeholder="Apellidos" value="<%= editUser.apellidos %>">
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email" value="<%= editUser.email %>">
+              </div>
+              <!--Campo (tipo dropdown) para introducir el rol-->
+              <div class="form-group">
+                <% if(editUser.rol=="administrador"){ %>
+                  <select name="rol">
+                    <option selected value="administrador">Administrador</option>
+                    <option value="profesor">Profesor</option>
+                    <option value="alumno">Alumno</option>
+                  </select>
+                  <% }else if(editUser.rol == "profesor"){ %>
+                    <select name="rol">
+                      <option value="administrador">Administrador</option>
+                      <option selected value="profesor">Profesor</option>
+                      <option value="alumno">Alumno</option>
+                    </select>
+                    <% }else{ %>
+                      <select name="rol">
+                        <option value="administrador">Administrador</option>
+                        <option value="profesor">Profesor</option>
+                        <option selected value="alumno">Alumno</option>
+                      </select>
+                      <% } %>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Actualizar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% include partials/_footer%>

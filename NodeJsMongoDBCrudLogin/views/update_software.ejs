@@ -1,0 +1,98 @@
+<% include partials/_header %> 
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <% if (typeof success !== 'undefined' && success === 'true') { %>
+          <div class="alert alert-success" role="alert">
+            ¡Acción completada con exito!
+          </div>
+        <% } else if (typeof error !== 'undefined' && error === 'true') { %>
+          <div class="alert alert-danger" role="alert">
+            Hubo un error al completar la acción. Por favor, inténtalo de nuevo.
+          </div>
+        <% } %>
+        <div class="card-body">
+          <h3>Editar Software</h3>
+          <!-- Formulario para editar el software -->
+          <form action="/softwares/update/<%= software._id %>" method="post"> <!-- Modificado el action para apuntar a /softwares/update/:id -->
+            <div class="form-group">
+              <label for="nombre">Nombre:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" value="<%= software.nombre %>" required>
+            </div>
+            <div class="form-group">
+              <label for="url">URL:</label>
+              <input class="form-control" type="text" name="url" id="url" placeholder="URL" value="<%= software.url %>" required>
+            </div>
+            <div class="form-group">
+              <label for="descripcion">Descripción:</label>
+              <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Descripción" style="height: 100px;" maxlength="150" required><%= software.descripcion %></textarea>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Guardar Cambios</button>
+          </form>
+        </div>
+      </div>
+      <br>
+      <!-- Formulario para subir archivos -->
+      <div class="card">
+        <div class="card-body">
+          <form action="/softwares/upload/<%= software._id %>" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <h3>Subir Archivo</h3>
+              <label for="file">Selección de archivo:</label>
+              <input class="form-control" type="file" name="file" id="file" required>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Subir Archivo</button>
+          </form>
+        </div>
+      </div>   
+    </div>
+
+    <div class="col-md-6">
+      <!--Lista de archivos relacionados-->
+      <div class="card">
+        <div class="card-body">
+          <h3>Archivos Relacionados</h3>
+          <div class="form-group">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Nombre del archivo</th>
+                  <% if(user.rol=="administrador" || user.rol=="profesor" ) {%>
+                    <!--Solo lo ven admins y profesores-->
+                    <th>Operaciones</th>
+                  <% } %>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (software.archivos.length > 0) { %>
+                  <% for(var i=0; i < software.archivos.length; i++) { %>
+                    <tr>
+                      <td>
+                        <%= software.archivos[i].name %>
+                      </td>
+                      <% if(user.rol=="administrador" || user.rol=="profesor" ) {%>
+                        <!--Solo lo ven admins y profesores-->
+                        <td>
+                          <div>
+                            <a style="margin: 5px;" href="/softwares/deleteFile/<%= software._id %>/<%= i %>"
+                              class="btn btn-danger">Eliminar</a>
+                          </div>
+                        </td>
+                      <% } %>
+                    </tr>
+                  <% } %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="2">No se encontraron archivos asociados a este software.</td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include partials/_footer %>

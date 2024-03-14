@@ -1,0 +1,36 @@
+<% include partials/_header %>
+
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <% if (typeof success !== 'undefined' && success === 'true') { %>
+            <div class="alert alert-success" role="alert">
+              ¡Sugerencia enviada con éxito!
+            </div>
+          <% } else if (typeof error !== 'undefined' && error === 'true') { %>
+            <div class="alert alert-danger" role="alert">
+              Hubo un error al enviar la sugerencia. Por favor, inténtalo de nuevo.
+            </div>
+          <% } %>
+          <h3>Envía un mensaje</h3>
+          <!-- Formulario para enviar un mensaje -->
+          <form action="/sugerencias/enviar" method="post">
+            <div class="form-group">
+              <label for="name">Asunto:</label>
+              <input class="form-control" type="text" name="name" id="name" placeholder="Nombre" required>
+            </div>
+            <div class="form-group">
+              <label for="suggestion">Sugerencia:</label>
+              <textarea class="form-control" name="suggestion" id="suggestion" rows="4" placeholder="Escribe tu sugerencia aquí" required></textarea>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Enviar Sugerencia</button>
+          </form>                    
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include partials/_footer %>
